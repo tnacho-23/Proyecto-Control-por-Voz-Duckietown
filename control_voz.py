@@ -49,7 +49,7 @@ else:
 # Se reinicia el environment
 env.reset()
 
-
+action = np.array([0.0, 0.0])
 while True:
 
     # Captura la tecla que está siendo apretada y almacena su valor en key
@@ -63,7 +63,7 @@ while True:
     # velocidad lineal y velocidad de giro
     # En este caso, ambas velocidades son 0 (acción por defecto)
 
-    action = np.array([0.0, 0.0])
+    
 
     # Definir acción en base a la tecla apretada
     if key == ord('w'):
@@ -117,6 +117,9 @@ while True:
                 if str(text)==('gira'):
                     print('Girando')
                     action[1]=1
+                if str(text)==('detente'):
+                    print('stop')
+                    action = np.array([0.0, 0.0])
             
                 
             except:
