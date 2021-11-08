@@ -114,9 +114,12 @@ while True:
                 if str(text)==('adelante'):
                     print('Moviendose hacia adelante')
                     action[0]=0.44
-                if str(text)==('gira'):
-                    print('Girando')
-                    action[1]=1
+                if str(text)==('derecha'):
+                    print('Girando hacia la derecha')
+                    action[1]=-0.44
+                if str(text)==('izquierda'):
+                    print('Girando hacia la izquierda')
+                    action[1]=0.44
                 if str(text)==('detente'):
                     print('stop')
                     action = np.array([0.0, 0.0])
