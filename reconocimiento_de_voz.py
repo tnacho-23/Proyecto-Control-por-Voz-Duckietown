@@ -7,6 +7,6 @@ with sr.Microphone() as source:
 
     try:
         text = r.recognize_google(audio, language='es-ES')
-        print("Lo que escuhé fue:",str(text))
+        print("Lo que escuché fue:",str(text))
     except:
         print("No te he entendido")

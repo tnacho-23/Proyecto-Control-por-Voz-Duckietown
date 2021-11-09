@@ -110,7 +110,7 @@ while True:
             audio = r.listen(source)
             try:
                 text = r.recognize_google(audio, language='es-ES')
-                print("Lo que escuhé fue:",str(text))
+                print("Lo que escuché fue:",str(text))
                 if str(text)==('adelante'):
                     print('Moviendose hacia adelante')
                     action[0]=0.44
@@ -123,6 +123,16 @@ while True:
                 if str(text)==('detente'):
                     print('stop')
                     action = np.array([0.0, 0.0])
+                if str(text)==('acelera'):
+                    print('Acelerando vehículo')
+                    action[0]=1
+                if str(text)==('frena'):
+                    print('Frenando vehículo')
+                    action[0]=0.20
+                if str(text)==('centrar'):
+                    print('Centrando vehículo')
+                    action[1]=0.0
+            
             
                 
             except:
