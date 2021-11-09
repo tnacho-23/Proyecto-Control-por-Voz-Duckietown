@@ -1,3 +1,4 @@
+#Programa que convierte voz a texto
 import speech_recognition as sr
 r = sr.Recognizer()
 
