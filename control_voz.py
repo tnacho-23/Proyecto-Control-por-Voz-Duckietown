@@ -101,7 +101,9 @@ while True:
         action[0]=-0.44
         action[1]=1
         print(str(key))
-        
+    if key == ord('p'):
+        action=np.array([0.0,0.0])
+
         
     #Configuración del micrófono
     if key == ord('m'):
@@ -114,26 +116,33 @@ while True:
                 if str(text)==('adelante'):
                     print('Moviendose hacia adelante')
                     action[0]=0.44
-                if str(text)==('derecha'):
+                elif str(text)==('derecha'):
                     print('Girando hacia la derecha')
                     action[1]=-0.44
-                if str(text)==('izquierda'):
+                elif str(text)==('izquierda'):
                     print('Girando hacia la izquierda')
                     action[1]=0.44
-                if str(text)==('detente'):
+                elif str(text)==('detente'):
                     print('stop')
                     action = np.array([0.0, 0.0])
-                if str(text)==('acelera'):
+                elif str(text)==('acelera'):
                     print('Acelerando vehículo')
-                    action[0]=1
-                if str(text)==('frena'):
+                    action[0]=action[0]*1.2
+                elif str(text)==('frena'):
                     print('Frenando vehículo')
-                    action[0]=0.20
-                if str(text)==('centrar'):
+                    action[0]=action[0]*0.8
+                elif str(text)==('centrar'):
                     print('Centrando vehículo')
                     action[1]=0.0
-            
-            
+                elif str(text)==('atrás') or str(text)==('reversa'):
+                    print('Retrocediendo')
+                    action[0]=-0.44
+                elif str(text)==('media vuelta'):
+                    print('Dando media vuelta')
+                    action=np.array([0.0,1])
+                    time.sleep(8)
+                    action=np.array([0.0,0.0])
+        
                 
             except:
                 print("No te he entendido")
