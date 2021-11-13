@@ -131,7 +131,7 @@ while True:
                 elif str(text)==('frena'):
                     print('Frenando vehículo')
                     action[0]=action[0]*0.8
-                elif str(text)==('centrar'):
+                elif str(text)==('centro'):
                     print('Centrando vehículo')
                     action[1]=0.0
                 elif str(text)==('atrás') or str(text)==('reversa'):
