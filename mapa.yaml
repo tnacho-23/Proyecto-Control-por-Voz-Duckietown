@@ -25,11 +25,17 @@ tiles:
 objects:
 
 - kind: duckie
-  pos: [2, 2]
-  rotate: -90
+  pos: [2.5, 2]
+  rotate: -45
   height: 0.08
   optional: true
 
+- kind: duckie
+  pos: [2.8, 2]
+  rotate: -45
+  height: 0.08
+  optional: true
+  
 - kind: house
   pos: [0, 0]
   rotate: 90
