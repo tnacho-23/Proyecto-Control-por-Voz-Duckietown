@@ -44,10 +44,19 @@ if args.env_name and args.env_name.find('Duckietown') != -1:
     )
 else:
     env = gym.make(args.env_name)
+    
+def red_alert(obs):
+    red_img = np.zeros((480, 640, 3), dtype = np.uint8)
+    red_img[:,:,0] = 255
+    blend = cv2.addWeighted(obs, 0.5, red_img, 0.5, 0)
+
+    return blend
 
 # Se reinicia el environment
 env.reset()
-
+lower_yellow = np.array([140, 140, 0])
+upper_yellow = np.array([255, 255, 5])
+min_area = 25000
 action = np.array([0.0, 0.0])
 while True:
 
@@ -126,10 +135,10 @@ while True:
                     action = np.array([0.0, 0.0])
                 elif str(text)==('acelera'):
                     print('Acelerando vehículo')
-                    action[0]=action[0]*1.2
+                    action[0]=action[0]*1.5
                 elif str(text)==('frena'):
                     print('Frenando vehículo')
-                    action[0]=action[0]*0.8
+                    action[0]=action[0]*0.5
                 elif str(text)==('centro'):
                     print('Centrando vehículo')
                     action[1]=0.0
@@ -158,10 +167,47 @@ while True:
         print('done!')
         # En ese caso se reinicia el simulador
         env.reset()
+        ### CÓDIGO DE DETECCIÓN POR COLOR ###
+
+        #Transformar imagen a espacio HSV
+    img = cv2.cvtColor(obs,cv2.COLOR_RGB2HSV)
+
+        # Filtrar colores de la imagen en el rango utilizando
+    mask = cv2.inRange(obs,lower_yellow,upper_yellow)
+
+        # Bitwise-AND entre máscara (mask) y original (obs) para visualizar lo filtrado
+    fimg = cv2.bitwise_and(img, img,mask = mask)
+
+        # Se define kernel para operaciones morfológicas
+    kernel = np.ones((5,5),np.uint8)
+
+        # Aplicar operaciones morfológicas para eliminar ruido
+        # Esto corresponde a hacer un Opening
+        # https://docs.opencv.org/trunk/d9/d61/tutorial_py_morphological_ops.html
+        #Operacion morfologica erode
+    fimg1= cv2.erode(fimg, kernel, iterations = 1)
+        #Operacion morfologica dilate
+    fimg2= cv2.dilate(fimg1, kernel, iterations = 1)
+
+        # Busca contornos de blobs
+        # https://docs.opencv.org/trunk/d3/d05/tutorial_py_table_of_contents_contours.html
+    contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        # Iterar sobre contornos y dibujar bounding box de los patos
+    for cnt in contours:
+            # Obtener rectangulo que bordea un contorno
+        x,y,w,h=cv2.boundingRect(cnt)
+            #Filtrar por area minima
+        AREA=w*h
+        if AREA > min_area: # DEFINIR AREA
+                #Dibujar rectangulo en el frame original
+            cv2.rectangle(obs,(x,y),(x+w,y+h),(0,176,246),2)
+            alert = True
+            obs=red_alert(obs)
+            action[0]=0.0
 
     # Se muestra en una ventana llamada "patos" la observación del simulador
     cv2.imshow("patos", cv2.cvtColor(obs, cv2.COLOR_RGB2BGR))
-
 
 # Se cierra el environment y termina el programa
 env.close()
