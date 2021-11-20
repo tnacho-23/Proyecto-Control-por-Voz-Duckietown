@@ -136,11 +136,7 @@ while True:
                 elif str(text)==('atrás') or str(text)==('reversa'):
                     print('Retrocediendo')
                     action[0]=-0.44
-                elif str(text)==('media vuelta'):
-                    print('Dando media vuelta')
-                    action=np.array([0.0,1])
-                    time.sleep(8)
-                    action=np.array([0.0,0.0])
+
         
                 
             except:
