@@ -197,10 +197,11 @@ while True:
         AREA=w*h
         if AREA > min_area: # DEFINIR AREA
                 #Dibujar rectangulo en el frame original
-            cv2.rectangle(obs,(x,y),(x+w,y+h),(0,176,246),2)
+            cv2.rectangle(obs,(x,y),(x+w,y+h),(255,0,0),2)
             alert = True
             obs=red_alert(obs)
-            action[0]=0.0
+            action[0]=-0.5
+            action[1]=0.0
 
     # Se muestra en una ventana llamada "patos" la observación del simulador
     cv2.imshow("patos", cv2.cvtColor(obs, cv2.COLOR_RGB2BGR))
