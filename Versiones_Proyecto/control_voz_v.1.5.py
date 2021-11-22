@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
+
 """
-Created on Wed Oct 27 22:24:56 2021
-@author: Nacho
-"""
-"""
+v.1.5
 Este programa permite mover al Duckiebot dentro del simulador
 usando control por voz.
+Versión con Freno de emergencia
 """
 
 import sys
@@ -200,7 +198,8 @@ while True:
             cv2.rectangle(obs,(x,y),(x+w,y+h),(255,0,0),2)
             alert = True
             obs=red_alert(obs)
-            action[0]=-0.5
+            action[0]=-0.5  
+            action[0]=0.0
             action[1]=0.0
 
     # Se muestra en una ventana llamada "patos" la observación del simulador
