@@ -14,7 +14,10 @@ import numpy as np
 import cv2
 import speech_recognition as sr
 import time
+import pyttsx3
+import win32com
 r = sr.Recognizer()
+eng=pyttsx3.init()
 
 # Se leen los argumentos de entrada
 parser = argparse.ArgumentParser()
@@ -55,6 +58,8 @@ lower_yellow = np.array([140, 140, 0])
 upper_yellow = np.array([255, 255, 5])
 min_area = 25000
 action = np.array([0.0, 0.0])
+eng.say('Bienvenide a dakitaun, Presiona eme para dar instrucciones')
+eng.runAndWait()
 while True:
 
     # Captura la tecla que está siendo apretada y almacena su valor en key
@@ -119,10 +124,14 @@ while True:
                 text = r.recognize_google(audio, language='es-ES')
                 print("Lo que escuché fue:",str(text))
                 if str(text)==('adelante'):
+                    eng.say('Moviendose hacia adelante')
+                    eng.runAndWait()
                     print('Moviendose hacia adelante')
                     action[0]=0.44
                 elif str(text)==('derecha'):
                     print('Girando hacia la derecha')
+                    eng.say('Girando hacia la derecha')
+                    eng.runAndWait()
                     action[1]=-0.44
                 elif str(text)==('izquierda'):
                     print('Girando hacia la izquierda')
@@ -146,6 +155,8 @@ while True:
         
                 
             except:
+                eng.say('No te he entendido')
+                eng.runAndWait()
                 print("No te he entendido")
 
 
@@ -197,8 +208,10 @@ while True:
             cv2.rectangle(obs,(x,y),(x+w,y+h),(255,0,0),2)
             alert = True
             obs=red_alert(obs)
-            action[0]=-0.5
+            print('Precaucion')
+            action[0]=0.0
             action[1]=0.0
+            
 
     # Se muestra en una ventana llamada "patos" la observación del simulador
     cv2.imshow("patos", cv2.cvtColor(obs, cv2.COLOR_RGB2BGR))
