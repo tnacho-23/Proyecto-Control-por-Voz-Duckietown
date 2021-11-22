@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
+
 """
-Created on Wed Oct 27 22:24:56 2021
-@author: Nacho
-"""
-"""
+v.1.0
 Este programa permite mover al Duckiebot dentro del simulador
 usando control por voz.
+Versión básica
+
 """
 
 import sys
