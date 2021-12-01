@@ -23,8 +23,8 @@ class Template(object):
         #publisher
         super(Template, self).__init__()
         self.publisher = rospy.Publisher('/duckiebot/wheels_driver_node/car_cmd', Twist2DStamped, queue_size=10)
-        self.v=0
-        self.w=0
+        self.v = 0
+        self.omega = 0
        
         # subscriptor
         
@@ -45,13 +45,13 @@ class Template(object):
                             self.v=0.44
                         elif str(text)==('derecha'):
                             print('Girando hacia la derecha')
-                            self.w = -0.44
+                            self.omega = -0.44
                         elif str(text)==('izquierda'):
                             print('Girando hacia la izquierda')
-                            self.w=0.44
+                            self.omega=0.44
                         elif str(text)==('detente'):
                             print('stop')
-                            self.w = 0
+                            self.omega = 0
                             self.v = 0
                         elif str(text)==('acelera'):
                             print('Acelerando vehículo')
@@ -61,16 +61,16 @@ class Template(object):
                             self.v = self.v*0.8
                         elif str(text)==('centro'):
                             print('Centrando vehículo')
-                            self.w = 0.0
+                            self.omega = 0.0
                         elif str(text)==('atrás') or str(text)==('reversa'):
                             print('Retrocediendo')
                             self.v = -0.44
                         else:
                             self.v = 0
-                            self.w = 0
+                            self.omega = 0
                         twist = Twist2DStamped()
                         twist.v = self.v
-                        twist.w = self.w    
+                        twist.omega = self.omega    
                         self.publisher.publish(twist)
                     except:
                         print("No te he entendido")
