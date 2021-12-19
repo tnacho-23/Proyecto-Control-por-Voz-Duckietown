@@ -134,21 +134,31 @@ while True:
                     eng.runAndWait()
                     action[1]=-0.44
                 elif str(text)==('izquierda'):
+                    eng.say('Girando hacia la izquierda')
+                    eng.runAndWait()
                     print('Girando hacia la izquierda')
                     action[1]=0.44
                 elif str(text)==('detente'):
-                    print('stop')
+                    eng.say('Deteniendo vehiculo')
+                    eng.runAndWait()
+                    print('Deteniendo vehiculo')
                     action = np.array([0.0, 0.0])
                 elif str(text)==('acelera'):
-                    print('Acelerando vehículo')
+                    eng.say('Acelerando vehiculo')
+                    eng.runAndWait()
+                    print('Acelerando vehiculo')
                     action[0]=action[0]*1.5
                 elif str(text)==('frena'):
-                    print('Frenando vehículo')
+                    eng.say('Frenando vehiculo')
+                    eng.runAndWait()
+                    print('Frenando vehiculo')
                     action[0]=action[0]*0.5
                 elif str(text)==('centro'):
-                    print('Centrando vehículo')
+                    print('Centrando vehiculo')
                     action[1]=0.0
                 elif str(text)==('atrás') or str(text)==('reversa'):
+                    eng.say('Retrocediendo')
+                    eng.runAndWait()
                     print('Retrocediendo')
                     action[0]=-0.44
 
